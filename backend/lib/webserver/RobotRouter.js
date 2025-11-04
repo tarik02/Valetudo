@@ -95,6 +95,34 @@ class RobotRouter {
             }
         });
 
+        this.router.get("/get-object", async (req, res) => {
+            try {
+                if (this.robot instanceof DreameValetudoRobot)
+                {
+                    
+                    const objectName =  req.query.obj_name;
+                    const index = req.query.index;
+                    const fdsObject = this.robot.fdsObjects.slice().reverse().find(obj => obj.name === objectName && obj.index === index);
+
+                    if (fdsObject === undefined)
+                    {
+                        Logger.debug("Current fds objects");
+                        this.robot.fdsObjects.forEach((obj) => Logger.info(`Object ${obj.name}/${obj.index}`));
+
+                        res.status(404).send(`Object ${objectName}/${index} not found`);
+                        return;
+                    }
+
+                    res.json(fdsObject);
+                    return;
+                }
+
+                res.status(418).send("Robot not supported");
+            } catch (err) {
+                res.status(500).send(err.toString());
+            }
+        });
+
 
         this.router.use("/capabilities/", new CapabilitiesRouter({
             robot: this.robot,

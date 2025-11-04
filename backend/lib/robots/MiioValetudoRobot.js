@@ -511,7 +511,7 @@ class MiioValetudoRobot extends ValetudoRobot {
 
         let existsIndex = this.fdsObjects.findIndex(obj => obj.name === fdsObject.name && obj.index === fdsObject.index);
 
-        if (existsIndex !== -1) 
+        if (existsIndex !== -1)
             this.fdsObjects.splice(existsIndex, 1);
 
         this.fdsObjects.push(fdsObject);

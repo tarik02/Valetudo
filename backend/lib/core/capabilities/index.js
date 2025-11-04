@@ -1,8 +1,8 @@
 module.exports = {
-    AutoEmptyDockAutoEmptyControlCapability: require("./AutoEmptyDockAutoEmptyControlCapability"),
     AutoEmptyDockAutoEmptyIntervalControlCapability: require("./AutoEmptyDockAutoEmptyIntervalControlCapability"),
     AutoEmptyDockManualTriggerCapability: require("./AutoEmptyDockManualTriggerCapability"),
     BasicControlCapability: require("./BasicControlCapability"),
+    CameraLightControlCapability: require("./CameraLightControlCapability"),
     CarpetModeControlCapability: require("./CarpetModeControlCapability"),
     CarpetSensorModeControlCapability: require("./CarpetSensorModeControlCapability"),
     CollisionAvoidantNavigationControlCapability: require("./CollisionAvoidantNavigationControlCapability"),
@@ -12,6 +12,7 @@ module.exports = {
     DoNotDisturbCapability: require("./DoNotDisturbCapability"),
     FanSpeedControlCapability: require("./FanSpeedControlCapability"),
     GoToLocationCapability: require("./GoToLocationCapability"),
+    HighResolutionManualControlCapability: require("./HighResolutionManualControlCapability"),
     KeyLockCapability: require("./KeyLockCapability"),
     LocateCapability: require("./LocateCapability"),
     ManualControlCapability: require("./ManualControlCapability"),
@@ -23,6 +24,11 @@ module.exports = {
     MappingPassCapability: require("./MappingPassCapability"),
     MopDockCleanManualTriggerCapability: require("./MopDockCleanManualTriggerCapability"),
     MopDockDryManualTriggerCapability: require("./MopDockDryManualTriggerCapability"),
+    MopDockMopAutoDryingControlCapability: require("./MopDockMopAutoDryingControlCapability"),
+    MopDockMopWashTemperatureControlCapability: require("./MopDockMopWashTemperatureControlCapability"),
+    MopExtensionControlCapability: require("./MopExtensionControlCapability"),
+    MopExtensionFurnitureLegHandlingControlCapability: require("./MopExtensionFurnitureLegHandlingControlCapability"),
+    MopTwistControlCapability: require("./MopTwistControlCapability"),
     ObstacleAvoidanceControlCapability: require("./ObstacleAvoidanceControlCapability"),
     ObstacleImagesCapability: require("./ObstacleImagesCapability"),
     OperationModeControlCapability: require("./OperationModeControlCapability"),
@@ -38,5 +44,5 @@ module.exports = {
     WaterUsageControlCapability: require("./WaterUsageControlCapability"),
     WifiConfigurationCapability: require("./WifiConfigurationCapability"),
     WifiScanCapability: require("./WifiScanCapability"),
-    ZoneCleaningCapability: require("./ZoneCleaningCapability")
+    ZoneCleaningCapability: require("./ZoneCleaningCapability"),
 };

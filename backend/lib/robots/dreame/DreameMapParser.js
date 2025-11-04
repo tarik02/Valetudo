@@ -1,4 +1,4 @@
-const DreameUtils = require("./DreameUtils");
+const DreameConst = require("./DreameConst");
 const Logger = require("../../Logger");
 const mapEntities = require("../../entities/map");
 const uuid = require("uuid");
@@ -268,9 +268,13 @@ class DreameMapParser {
                         parseFloat(obstacle[0]),
                         parseFloat(obstacle[1])
                     );
-                    const type = DreameUtils.AI_CLASSIFIER_IDS[obstacle[2]] ?? `Unknown ID ${obstacle[2]}`;
+                    const type = DreameConst.AI_CLASSIFIER_IDS[obstacle[2]] ?? `Unknown ID ${obstacle[2]}`;
                     const confidence = `${Math.round(parseFloat(obstacle[3])*100)}%`;
                     const image = obstacle[5] !== undefined ? obstacle[5] : undefined;
+
+                    if (HIDDEN_OBSTACLE_TYPES.includes(obstacle[2])) {
+                        return;
+                    }
 
                     entities.push(new mapEntities.PointMapEntity({
                         points: [
@@ -689,6 +693,7 @@ DreameMapParser.CONVERT_ANGLE_TO_VALETUDO = function(angle) {
     return ((angle < 180 ? 180 - angle : 360 - angle + 180) + 270) % 360;
 };
 
+const HIDDEN_OBSTACLE_TYPES = ["200"];
 const OBSTACLE_ID_NAMESPACE = "f90e13dc-3728-4267-bd90-43caa3f460e5";
 
 module.exports = DreameMapParser;

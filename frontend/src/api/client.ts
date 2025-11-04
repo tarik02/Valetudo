@@ -15,6 +15,7 @@ import {
     ConsumableProperties,
     ConsumableState,
     DoNotDisturbConfiguration,
+    HighResolutionManualControlInteraction,
     HTTPBasicAuthConfiguration,
     LogLevelResponse,
     ManualControlInteraction,
@@ -24,6 +25,9 @@ import {
     MapSegmentEditJoinRequestParameters,
     MapSegmentEditSplitRequestParameters,
     MapSegmentRenameRequestParameters,
+    MopDockMopWashTemperature,
+    MopDockMopWashTemperaturePayload,
+    MopDockMopWashTemperatureProperties,
     MQTTConfiguration,
     MQTTProperties,
     MQTTStatus,
@@ -806,19 +810,6 @@ export const sendPetObstacleAvoidanceControlState = async (enable: boolean): Pro
     await sendToggleMutation(Capability.PetObstacleAvoidanceControl, enable);
 };
 
-
-export const fetchAutoEmptyDockAutoEmptyControlState = async (): Promise<SimpleToggleState> => {
-    return valetudoAPI
-        .get<SimpleToggleState>(`/robot/capabilities/${Capability.AutoEmptyDockAutoEmptyControl}`)
-        .then(({ data }) => {
-            return data;
-        });
-};
-
-export const sendAutoEmptyDockAutoEmptyControlEnable = async (enable: boolean): Promise<void> => {
-    await sendToggleMutation(Capability.AutoEmptyDockAutoEmptyControl, enable);
-};
-
 export const fetchCollisionAvoidantNavigationControlState = async (): Promise<SimpleToggleState> => {
     return valetudoAPI
         .get<SimpleToggleState>(`/robot/capabilities/${Capability.CollisionAvoidantNavigation}`)
@@ -907,6 +898,24 @@ export const sendManualControlInteraction = async (interaction: ManualControlInt
         .then(({ status }) => {
             if (status !== 200) {
                 throw new Error("Could not send manual control interaction");
+            }
+        });
+};
+
+export const fetchHighResolutionManualControlState = async (): Promise<SimpleToggleState> => {
+    return valetudoAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.HighResolutionManualControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendHighResolutionManualControlInteraction = async (interaction: HighResolutionManualControlInteraction): Promise<void> => {
+    await valetudoAPI
+        .put(`/robot/capabilities/${Capability.HighResolutionManualControl}`, interaction)
+        .then(({ status }) => {
+            if (status !== 200) {
+                throw new Error("Could not send high resolution manual control interaction");
             }
         });
 };
@@ -1049,6 +1058,54 @@ export const sendMopDockDryManualTriggerCommand = async (
     );
 };
 
+export const fetchMopExtensionControlState = async (): Promise<SimpleToggleState> => {
+    return valetudoAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopExtensionControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendMopExtensionControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.MopExtensionControl, enable);
+};
+
+export const fetchCameraLightControlState = async (): Promise<SimpleToggleState> => {
+    return valetudoAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.CameraLightControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendCameraLightControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.CameraLightControl, enable);
+};
+
+export const fetchMopTwistControlState = async (): Promise<SimpleToggleState> => {
+    return valetudoAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopTwistControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendMopTwistControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.MopTwistControl, enable);
+};
+
+export const fetchMopExtensionFurnitureLegHandlingControlState = async (): Promise<SimpleToggleState> => {
+    return valetudoAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopExtensionFurnitureLegHandlingControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendMopExtensionFurnitureLegHandlingControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.MopExtensionFurnitureLegHandlingControl, enable);
+};
+
 export const fetchValetudoCustomizations = async (): Promise<ValetudoCustomizations> => {
     return valetudoAPI
         .get<ValetudoCustomizations>("/valetudo/config/customizations")
@@ -1142,4 +1199,44 @@ export const fetchObstacleImagesProperties = async (): Promise<ObstacleImagesPro
         .then(({ data }) => {
             return data;
         });
+};
+
+export const sendMopDockMopWashTemperature = async (payload: MopDockMopWashTemperaturePayload): Promise<void> => {
+    return valetudoAPI
+        .put(`/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}`, payload)
+        .then(({status}) => {
+            if (status !== 200) {
+                throw new Error("Could not send mop dock mop wash temperature");
+            }
+        });
+};
+
+export const fetchMopDockMopWashTemperature = async (): Promise<MopDockMopWashTemperature> => {
+    return valetudoAPI
+        .get<MopDockMopWashTemperaturePayload>(`/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}`)
+        .then(({data}) => {
+            return data.temperature;
+        });
+};
+
+export const fetchMopDockMopWashTemperatureProperties = async (): Promise<MopDockMopWashTemperatureProperties> => {
+    return valetudoAPI
+        .get<MopDockMopWashTemperatureProperties>(
+            `/robot/capabilities/${Capability.MopDockMopWashTemperatureControl}/properties`
+        )
+        .then(({data}) => {
+            return data;
+        });
+};
+
+export const fetchMopDockMopAutoDryingControlState = async (): Promise<SimpleToggleState> => {
+    return valetudoAPI
+        .get<SimpleToggleState>(`/robot/capabilities/${Capability.MopDockMopAutoDryingControl}`)
+        .then(({ data }) => {
+            return data;
+        });
+};
+
+export const sendMopDockMopAutoDryingControlState = async (enable: boolean): Promise<void> => {
+    await sendToggleMutation(Capability.MopDockMopAutoDryingControl, enable);
 };

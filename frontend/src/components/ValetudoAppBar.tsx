@@ -35,6 +35,7 @@ import {
     Wysiwyg as SystemInformationIcon,
     Info as AboutIcon,
     Help as HelpIcon,
+    SmartToy as AiIcon,
     SvgIconComponent
 } from "@mui/icons-material";
 import {Link, useLocation} from "react-router-dom";
@@ -69,6 +70,10 @@ interface MenuSubEntry {
 interface MenuSubheader {
     kind: "Subheader";
     title: string;
+    requiredCapabilities?: {
+        capabilities: Capability[];
+        type: "allof" | "anyof"
+    };
 }
 
 
@@ -84,7 +89,16 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
     },
     {
         kind: "Subheader",
-        title: "Robot"
+        title: "Robot",
+        requiredCapabilities: {
+            capabilities: [
+                Capability.ConsumableMonitoring,
+                Capability.ManualControl,
+                Capability.HighResolutionManualControl,
+                Capability.TotalStatistics
+            ],
+            type: "anyof"
+        }
     },
     {
         kind: "MenuEntry",
@@ -104,8 +118,8 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
         menuIcon: SettingsRemoteIcon,
         menuText: "Manual control",
         requiredCapabilities: {
-            capabilities: [Capability.ManualControl],
-            type: "allof"
+            capabilities: [Capability.ManualControl, Capability.HighResolutionManualControl],
+            type: "anyof"
         }
     },
     {
@@ -258,6 +272,13 @@ const menuTree: Array<MenuEntry | MenuSubEntry | MenuSubheader> = [
     },
     {
         kind: "MenuEntry",
+        route: "/valetudo/ai",
+        title: "AI Assistant",
+        menuIcon: AiIcon,
+        menuText: "AI Assistant"
+    },
+    {
+        kind: "MenuEntry",
         route: "/valetudo/help",
         title: "General Help",
         menuIcon: HelpIcon,
@@ -328,6 +349,31 @@ const ValetudoAppBar: React.FunctionComponent<{ paletteMode: PaletteMode, setPal
                     }).map((value, idx) => {
                         switch (value.kind) {
                             case "Subheader":
+                                if (value.requiredCapabilities) {
+                                    switch (value.requiredCapabilities.type) {
+                                        case "allof": {
+                                            if (!value.requiredCapabilities.capabilities.every(capability => {
+                                                const idx = Object.values(Capability).indexOf(capability);
+                                                return robotCapabilities[idx];
+                                            })) {
+                                                return null;
+                                            }
+
+                                            break;
+                                        }
+                                        case "anyof": {
+                                            if (!value.requiredCapabilities.capabilities.some(capability => {
+                                                const idx = Object.values(Capability).indexOf(capability);
+                                                return robotCapabilities[idx];
+                                            })) {
+                                                return null;
+                                            }
+
+                                            break;
+                                        }
+                                    }
+                                }
+
                                 return (
                                     <ListSubheader
                                         key={`${idx}`}

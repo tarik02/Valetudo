@@ -7,6 +7,7 @@ module.exports = {
     ConsumableMonitoringCapabilityRouter: require("./ConsumableMonitoringCapabilityRouter"),
     DoNotDisturbCapabilityRouter: require("./DoNotDisturbCapabilityRouter"),
     GoToLocationCapabilityRouter: require("./GoToLocationCapabilityRouter"),
+    HighResolutionManualControlCapabilityRouter: require("./HighResolutionManualControlCapabilityRouter"),
     LocateCapabilityRouter: require("./LocateCapabilityRouter"),
     ManualControlCapabilityRouter: require("./ManualControlCapabilityRouter"),
     MapResetCapabilityRouter: require("./MapResetCapabilityRouter"),
@@ -17,6 +18,7 @@ module.exports = {
     MappingPassCapabilityRouter: require("./MappingPassCapabilityRouter"),
     MopDockCleanManualTriggerCapabilityRouter: require("./MopDockCleanManualTriggerCapabilityRouter"),
     MopDockDryManualTriggerCapabilityRouter: require("./MopDockDryManualTriggerCapabilityRouter"),
+    MopDockMopWashTemperatureControlCapabilityRouter : require("./MopDockMopWashTemperatureControlCapabilityRouter"),
     ObstacleImagesCapabilityRouter: require("./ObstacleImagesCapabilityRouter"),
     PendingMapChangeHandlingCapabilityRouter: require("./PendingMapChangeHandlingCapabilityRouter"),
     PresetSelectionCapabilityRouter: require("./PresetSelectionCapabilityRouter"),
@@ -28,5 +30,5 @@ module.exports = {
     VoicePackManagementCapabilityRouter: require("./VoicePackManagementCapabilityRouter"),
     WifiConfigurationCapabilityRouter: require("./WifiConfigurationCapabilityRouter"),
     WifiScanCapabilityRouter: require("./WifiScanCapabilityRouter"),
-    ZoneCleaningCapabilityRouter: require("./ZoneCleaningCapabilityRouter")
+    ZoneCleaningCapabilityRouter: require("./ZoneCleaningCapabilityRouter"),
 };
